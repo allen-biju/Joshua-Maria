@@ -1,0 +1,210 @@
+/* --- Animations --- */
+
+/* 1. Standard Fade-in-up for Scroll Reveal */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger transitions for list items */
+.reveal-stagger-1 { transition-delay: 0.1s; }
+.reveal-stagger-2 { transition-delay: 0.2s; }
+.reveal-stagger-3 { transition-delay: 0.3s; }
+.reveal-stagger-4 { transition-delay: 0.4s; }
+
+/* 2. Keyframes */
+
+/* Loader Progress Bar filling */
+@keyframes fillProgress {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Drawing stroke effect for SVGs */
+@keyframes drawStroke {
+  0% {
+    stroke-dashoffset: 200;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Base Fade-in */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Floating Animation for Decorative Elements */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Audio Disk rotation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulse for Interactive Seals */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(106, 27, 41, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(106, 27, 41, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(106, 27, 41, 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* 3. Creative & High-Performance Animation Keyframes */
+
+/* Ken Burns Effect (Slow background panning & zoom) */
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.03) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
+  100% {
+    transform: scale(1.03) translate(0, 0);
+  }
+}
+
+/* Stained glass rays breathing */
+@keyframes glassRayGlow {
+  0%, 100% {
+    opacity: 0.25;
+    filter: drop-shadow(0 0 2px rgba(229, 196, 131, 0.3));
+  }
+  50% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 12px rgba(229, 196, 131, 0.7));
+  }
+}
+
+/* Color cycling for stained glass panels */
+@keyframes colorCycle {
+  0%, 100% {
+    fill: rgba(197, 160, 89, 0.15); /* Gold */
+  }
+  33% {
+    fill: rgba(143, 158, 139, 0.18); /* Sage */
+  }
+  66% {
+    fill: rgba(210, 159, 150, 0.18); /* Rose */
+  }
+}
+
+/* Shimmer metallic reflection */
+@keyframes goldShimmer {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  100% {
+    transform: translateX(150%) skewX(-25deg);
+  }
+}
+
+/* Scrolling mouse wheel outline */
+@keyframes scrollWheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+/* Staggered letter cascading */
+.char-reveal {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+              filter 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+              transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.char-reveal.revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Elegant Scroll Reveal Overrides (adds blur clearing) */
+.reveal-element {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(25px);
+  will-change: transform, opacity, filter;
+  transition: opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
+              filter 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* SVG Line Draw animation trigger */
+.divider-draw-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(197, 160, 89, 0), rgba(197, 160, 89, 0.7) 50%, rgba(197, 160, 89, 0));
+  transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  margin: var(--spacing-sm) auto;
+}
+
+.divider-draw-line.revealed {
+  width: 120px;
+}
+
+
+
+@keyframes frameSettle {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.012);
+  }
+  55% {
+    transform: translate3d(0, 0, 0) scale(0.996);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame-bg,
+  .frame-piece,
+  .wedding-frame-viewport {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

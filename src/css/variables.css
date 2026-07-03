@@ -1,0 +1,63 @@
+/* --- Design System & CSS Variables --- */
+
+:root {
+  /* Color Palette */
+  --color-ivory: #FAF6EE;
+  --color-ivory-rgb: 250, 246, 238;
+  --color-white: #FFFFFF;
+  --color-gold: #C5A059;
+  --color-gold-light: #E5C483;
+  --color-gold-dark: #9A7634;
+  --color-sage: #8F9E8B;
+  --color-sage-light: #E0E6DF;
+  --color-rose: #D29F96;
+  --color-rose-light: #F4E7E4;
+  --color-burgundy: #6A1B29;
+  --color-burgundy-hover: #54111D;
+  --color-beige: #F4EFE6;
+  --color-text-dark: #3A352D;
+  --color-text-muted: #6F685D;
+  --color-text-light: #FAF6EE;
+  --color-overlay: rgba(58, 53, 45, 0.4);
+  
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2.5rem;    /* 40px */
+  --spacing-xl: 4rem;      /* 64px */
+  --spacing-xxl: 6rem;     /* 96px */
+  
+  /* Screen Margins */
+  --screen-margin: clamp(1.25rem, 5vw, 4rem);
+
+  /* Transitions */
+  --transition-slow: 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-medium: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-fast: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  
+  /* Paper Texture Overlay */
+  --paper-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  
+  /* Shadow & Glassmorphism Blur */
+  --shadow-sm: 0 4px 10px rgba(58, 53, 45, 0.05);
+  --shadow-md: 0 10px 30px rgba(58, 53, 45, 0.08);
+  --shadow-lg: 0 20px 50px rgba(58, 53, 45, 0.12);
+  --glass-blur: blur(8px);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(197, 160, 89, 0.15);
+
+  /* Creative Animations Variables */
+  --scroll-percent: 0;
+  --scroll-y: 0px;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --card-tilt-x: 0deg;
+  --card-tilt-y: 0deg;
+  --gold-metallic: linear-gradient(135deg, #FAF6EE 0%, #C5A059 50%, #9A7634 100%);
+  --gold-glow: 0 0 15px rgba(197, 160, 89, 0.4);
+}
