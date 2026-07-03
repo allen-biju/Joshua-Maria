@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Photos and other files
+
+public/frame/full-referance.png
+public/frame/referance_guidance.png
