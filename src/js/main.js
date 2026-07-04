@@ -24,13 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set a stable CSS viewport height variable for mobile browsers
   // and update it on resize/orientationchange. Use `--svh` (px) and
   // `--vh` (1% of viewport) for calculations in CSS.
+  function getViewportHeight() {
+    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  }
+
   function setSVH() {
-    const svh = window.innerHeight;
+    const svh = getViewportHeight();
     document.documentElement.style.setProperty('--svh', svh + 'px');
     document.documentElement.style.setProperty('--vh', (svh * 0.01) + 'px');
   }
   setSVH();
   window.addEventListener('resize', setSVH);
+  window.addEventListener('scroll', setSVH, { passive: true });
   window.addEventListener('orientationchange', () => setTimeout(setSVH, 200));
 
   // 2. Interactive Preloader Logic (Upgraded: smooth progressive minimum-duration load)
@@ -197,7 +202,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function adjustFrameStageHeight() {
+    const viewportHeight = getViewportHeight();
+    if (weddingFrameStage) {
+      weddingFrameStage.style.height = viewportHeight + 'px';
+    }
+    if (mainContent) {
+      mainContent.style.minHeight = viewportHeight + 'px';
+    }
+    setSVH();
+  }
+
   function startFrameAssembly() {
+    adjustFrameStageHeight();
     document.body.classList.add('frame-sequence-active');
     
     if (weddingFrameStage) {
