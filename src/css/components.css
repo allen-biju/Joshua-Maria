@@ -116,10 +116,10 @@ body.dark-theme .preloader-ring-path {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(100dvw - 1rem, calc((100dvh - 1rem) * 0.7052238806));
-  height: min(100dvh - 1rem, calc((100dvw - 1rem) / 0.7052238806));
+  width: min(calc(100dvw - 1rem), calc((var(--svh) - 1rem) * 0.7052238806));
+  height: min(calc(var(--svh) - 1rem), calc((100dvw - 1rem) / 0.7052238806));
   max-width: calc(100dvw - 1rem);
-  max-height: calc(100dvh - 1rem);
+  max-height: calc(var(--svh) - 1rem);
   min-width: 0;
   min-height: 0;
   overflow: hidden;
@@ -244,10 +244,10 @@ body.frame-active #site-nav {
 }
 
 body.frame-active #main-content {
-  width: min(100dvw - 1rem, calc((100dvh - 1rem) * 0.7052238806));
+  width: min(calc(100dvw - 1rem), calc((var(--svh) - 1rem) * 0.7052238806));
   max-width: calc(100dvw - 1rem);
-  height: min(100dvh - 1rem, calc((100dvw - 1rem) / 0.7052238806));
-  max-height: calc(100dvh - 1rem);
+  height: min(calc(var(--svh) - 1rem), calc((100dvw - 1rem) / 0.7052238806));
+  max-height: calc(var(--svh) - 1rem);
   min-height: 0;
   margin: 0 auto;
   overflow-x: hidden;
@@ -278,7 +278,7 @@ body.frame-active .container {
 }
 
 body.frame-active #hero {
-  min-height: 100dvh;
+  min-height: var(--svh);
   height: auto;
   align-items: flex-start !important;
   padding-top: clamp(4.75rem, 13vh, 7rem);
@@ -342,8 +342,8 @@ body.frame-active #countdown-timer span:last-child {
 
 @supports not (height: 100dvh) {
   .wedding-frame-viewport {
-    width: min(100vw, calc(100vh * 0.7052238806));
-    height: min(100vh, calc(100vw / 0.7052238806));
+    width: min(100vw, calc(var(--svh) * 0.7052238806));
+    height: min(var(--svh), calc(100vw / 0.7052238806));
     transform: translate(-50%, -50%) scale(1.03);
   }
 
@@ -352,24 +352,24 @@ body.frame-active #countdown-timer span:last-child {
   }
 
   body.frame-active #main-content {
-    width: min(100vw, calc(100vh * 0.7052238806));
+    width: min(100vw, calc(var(--svh) * 0.7052238806));
   }
 
   body.frame-active #hero {
-    height: 100vh !important;
+    height: var(--svh) !important;
   }
 }
 
 @media (max-width: 640px) {
   #wedding-frame-stage {
-    height: 100dvh;
+    height: var(--svh);
   }
 
   .wedding-frame-viewport {
     width: 100dvw;
-    height: 100dvh;
+    height: var(--svh);
     max-width: 100dvw;
-    max-height: 100dvh;
+    max-height: var(--svh);
     top: 0;
     left: 0;
     transform: none;
@@ -381,13 +381,13 @@ body.frame-active #countdown-timer span:last-child {
 
   body.frame-active #main-content {
     width: 100dvw;
-    height: 100dvh;
+    height: var(--svh);
     max-width: 100dvw;
-    max-height: 100dvh;
+    max-height: var(--svh);
   }
 
   body.frame-active #hero {
-    min-height: 100dvh;
+    min-height: var(--svh);
     padding-top: clamp(2rem, 7vh, 3rem);
     padding-bottom: clamp(2rem, 7vh, 3rem);
   }
@@ -404,7 +404,7 @@ body.frame-active #countdown-timer span:last-child {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: var(--svh);
   z-index: 9000;
   background-color: var(--color-beige);
   background-image: 

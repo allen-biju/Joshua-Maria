@@ -21,6 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
     canvasEffect.start('celebration');
   });
 
+  // Set a stable CSS viewport height variable for mobile browsers
+  // and update it on resize/orientationchange. Use `--svh` (px) and
+  // `--vh` (1% of viewport) for calculations in CSS.
+  function setSVH() {
+    const svh = window.innerHeight;
+    document.documentElement.style.setProperty('--svh', svh + 'px');
+    document.documentElement.style.setProperty('--vh', (svh * 0.01) + 'px');
+  }
+  setSVH();
+  window.addEventListener('resize', setSVH);
+  window.addEventListener('orientationchange', () => setTimeout(setSVH, 200));
+
   // 2. Interactive Preloader Logic (Upgraded: smooth progressive minimum-duration load)
   const preloader = document.getElementById('interactive-preloader');
   const loadingRing = document.getElementById('loading-ring');
