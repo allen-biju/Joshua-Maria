@@ -116,10 +116,13 @@ body.dark-theme .preloader-ring-path {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(100dvw, calc(100dvh * 0.7052238806));
-  height: min(100dvh, calc(100dvw / 0.7052238806));
-  max-width: 100%;
-  max-height: 100%;
+  width: min(100dvw - 1rem, calc((100dvh - 1rem) * 0.7052238806));
+  height: min(100dvh - 1rem, calc((100dvw - 1rem) / 0.7052238806));
+  max-width: calc(100dvw - 1rem);
+  max-height: calc(100dvh - 1rem);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   transform: translate(-50%, -50%) scale(1.03);
   transform-origin: center;
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -241,11 +244,14 @@ body.frame-active #site-nav {
 }
 
 body.frame-active #main-content {
-  width: min(100dvw, calc(100dvh * 0.7052238806));
-  max-width: 100%;
-  min-height: 100dvh;
+  width: min(100dvw - 1rem, calc((100dvh - 1rem) * 0.7052238806));
+  max-width: calc(100dvw - 1rem);
+  height: min(100dvh - 1rem, calc((100dvw - 1rem) / 0.7052238806));
+  max-height: calc(100dvh - 1rem);
+  min-height: 0;
   margin: 0 auto;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: var(--color-ivory);
   background-image: url('/frame/background.png');
   background-repeat: repeat-y;
@@ -272,11 +278,11 @@ body.frame-active .container {
 }
 
 body.frame-active #hero {
-  height: 100dvh !important;
-  min-height: 620px;
+  min-height: 100dvh;
+  height: auto;
   align-items: flex-start !important;
   padding-top: clamp(4.75rem, 13vh, 7rem);
-  padding-bottom: clamp(8rem, 18vh, 10rem);
+  padding-bottom: clamp(5rem, 12vh, 7rem);
 }
 
 body.frame-active #hero > div:first-child {
@@ -355,8 +361,40 @@ body.frame-active #countdown-timer span:last-child {
 }
 
 @media (max-width: 640px) {
+  #wedding-frame-stage {
+    height: 100dvh;
+  }
+
+  .wedding-frame-viewport {
+    width: 100dvw;
+    height: 100dvh;
+    max-width: 100dvw;
+    max-height: 100dvh;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .frame-stage-assembled .wedding-frame-viewport {
+    transform: none;
+  }
+
   body.frame-active #main-content {
-    width: 100vw;
+    width: 100dvw;
+    height: 100dvh;
+    max-width: 100dvw;
+    max-height: 100dvh;
+  }
+
+  body.frame-active #hero {
+    min-height: 100dvh;
+    padding-top: clamp(2rem, 7vh, 3rem);
+    padding-bottom: clamp(2rem, 7vh, 3rem);
+  }
+
+  body.frame-active #hero h1 {
+    font-size: clamp(2rem, 8vw, 2.7rem);
+    white-space: normal;
   }
 }
 
