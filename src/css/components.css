@@ -366,21 +366,21 @@ body.frame-active #countdown-timer span:last-child {
   }
 
   .wedding-frame-viewport {
-    width: 100dvw;
     height: var(--svh);
+    width: min(100dvw, calc(var(--svh) * 0.7052238806));
     max-width: 100dvw;
     max-height: var(--svh);
-    top: 0;
-    left: 0;
-    transform: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .frame-stage-assembled .wedding-frame-viewport {
-    transform: none;
+    transform: translate(-50%, -50%);
   }
 
   body.frame-active #main-content {
-    width: 100dvw;
+    width: min(100dvw, calc(var(--svh) * 0.7052238806));
     height: var(--svh);
     max-width: 100dvw;
     max-height: var(--svh);
