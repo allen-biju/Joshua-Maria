@@ -55,21 +55,38 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Pulse for Interactive Seals */
+/* Pulse for Interactive Seals (filter-only: no transform conflict with hover/positioning) */
 @keyframes pulseGlow {
+  0%   { filter: drop-shadow(0 0 3px rgba(106, 27, 41, 0.5)); }
+  50%  { filter: drop-shadow(0 0 12px rgba(197, 160, 89, 0.9)) drop-shadow(0 0 4px rgba(229, 196, 131, 0.6)); }
+  100% { filter: drop-shadow(0 0 3px rgba(106, 27, 41, 0.5)); }
+}
+
+/* Subtle scale breathing animation on wax seal SVG child */
+@keyframes waxSealBreathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+/* Sparkle Particle Float & Fade */
+@keyframes sparkleFloat {
   0% {
-    box-shadow: 0 0 0 0 rgba(106, 27, 41, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(106, 27, 41, 0);
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 1;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(106, 27, 41, 0);
+    transform: translate(var(--vx), var(--vy)) scale(0) rotate(var(--rot));
+    opacity: 0;
   }
 }
 
 .pulse-glow {
-  animation: pulseGlow 2s infinite;
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.pulse-glow .wax-seal-svg {
+  animation: waxSealBreathe 2.5s ease-in-out infinite;
+  transform-origin: center;
 }
 
 .floating-element {

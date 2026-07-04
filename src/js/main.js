@@ -21,71 +21,87 @@ document.addEventListener('DOMContentLoaded', () => {
     canvasEffect.start('celebration');
   });
 
-  // 2. Interactive Preloader Logic
+  // 2. Interactive Preloader Logic (Upgraded: smooth progressive minimum-duration load)
   const preloader = document.getElementById('interactive-preloader');
   const loadingRing = document.getElementById('loading-ring');
   const preloaderPercentage = document.getElementById('preloader-percentage');
   const plSkipBtn = document.getElementById('pl-skip-btn');
   
-  let isLoaded = false;
-  let loadingProgress = 0;
+  const loaderStartTime = Date.now();
+  const minLoaderDuration = 2500; // Guarantee 2.5s minimum load display
+  let pageResourcesLoaded = false;
+  let currentLoaderProgress = 0;
   
-  // Simulated progress logic: increment to 90%
-  const progressTimer = setInterval(() => {
-    if (loadingProgress < 90) {
-      loadingProgress += Math.random() * 4;
-      if (loadingProgress > 90) loadingProgress = 90;
-      
-      const roundedProgress = Math.floor(loadingProgress);
-      if (loadingRing) loadingRing.style.setProperty('--p', roundedProgress + '%');
-      if (preloaderPercentage) preloaderPercentage.innerText = roundedProgress + '%';
-    }
-  }, 60);
-
-  function finishLoading() {
-    if (isLoaded) return;
-    isLoaded = true;
-
-    clearInterval(progressTimer);
+  function updateLoader() {
+    const elapsed = Date.now() - loaderStartTime;
+    let targetProgress = 0;
     
-    // Fast-forward animation to exactly 100% when everything is loaded
-    const finishTimer = setInterval(() => {
-      loadingProgress += 5;
-      if (loadingProgress >= 100) {
-        loadingProgress = 100;
-        
-        if (loadingRing) loadingRing.style.setProperty('--p', '100%');
-        if (preloaderPercentage) preloaderPercentage.innerText = '100%';
-        
-        clearInterval(finishTimer);
-        
-        setTimeout(() => {
-          if (preloader) {
-            preloader.style.opacity = '0';
-            preloader.style.visibility = 'hidden';
-            setTimeout(() => preloader.remove(), 800);
-          }
-        }, 300);
+    if (!pageResourcesLoaded) {
+      // Slow load fallback: reach up to 95% over 6 seconds
+      targetProgress = Math.min(95, (elapsed / 6000) * 95);
+    } else {
+      // Fully loaded resources: animate to 100% by the end of minLoaderDuration
+      if (elapsed < minLoaderDuration) {
+        targetProgress = (elapsed / minLoaderDuration) * 100;
       } else {
-        const roundedProgress = Math.floor(loadingProgress);
-        if (loadingRing) loadingRing.style.setProperty('--p', roundedProgress + '%');
-        if (preloaderPercentage) preloaderPercentage.innerText = roundedProgress + '%';
+        targetProgress = 100;
       }
-    }, 16);
+    }
+    
+    // Smooth ease-out interpolation
+    currentLoaderProgress += (targetProgress - currentLoaderProgress) * 0.08;
+    
+    // Check if we are close enough to 100% to snap and complete
+    if (targetProgress === 100 && (100 - currentLoaderProgress) < 0.5) {
+      currentLoaderProgress = 100;
+    }
+    
+    const displayProgress = Math.min(100, Math.floor(currentLoaderProgress));
+    if (loadingRing) loadingRing.style.setProperty('--p', displayProgress + '%');
+    if (preloaderPercentage) preloaderPercentage.innerText = displayProgress + '%';
+    
+    if (displayProgress >= 100) {
+      setTimeout(() => {
+        if (preloader) {
+          preloader.style.opacity = '0';
+          preloader.style.visibility = 'hidden';
+          setTimeout(() => preloader.remove(), 800);
+        }
+      }, 400);
+    } else {
+      requestAnimationFrame(updateLoader);
+    }
   }
-
-  // Trigger when the window is fully loaded
-  window.addEventListener('load', finishLoading);
-
-  // Skip button click handler
+  
+  // Start the animated loader loop
+  requestAnimationFrame(updateLoader);
+  
+  // Register page loaded event
+  window.addEventListener('load', () => {
+    pageResourcesLoaded = true;
+  });
+  
+  // Fallback: force page loaded status after 5 seconds in case of network issues
+  setTimeout(() => {
+    pageResourcesLoaded = true;
+  }, 5000);
+  
+  // Skip button handler
   if (plSkipBtn) {
-    plSkipBtn.addEventListener('click', finishLoading);
+    plSkipBtn.addEventListener('click', () => {
+      pageResourcesLoaded = true;
+      currentLoaderProgress = 100;
+      if (loadingRing) loadingRing.style.setProperty('--p', '100%');
+      if (preloaderPercentage) preloaderPercentage.innerText = '100%';
+      if (preloader) {
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+        setTimeout(() => preloader.remove(), 800);
+      }
+    });
   }
 
-  // Fallback: Force load if it takes too long (e.g. 5 seconds)
-  setTimeout(finishLoading, 5000);
-
-  // 3. Open Envelope Flap, Slide Card Up, then Reveal Main Content
+  // 3. Envelope Hover 3D Parallax & Letters Open Interaction
   const openEnvelopeBtn = document.getElementById('open-envelope-btn');
   const envelopeWrapper = document.getElementById('envelope-wrapper');
   const envelopeContainer = document.getElementById('envelope-container');
@@ -93,6 +109,82 @@ document.addEventListener('DOMContentLoaded', () => {
   const weddingFrameStage = document.getElementById('wedding-frame-stage');
   const frameAssemblyDuration = 2600;
   
+  // 3A. Mouse Move 3D Tilt Effect
+  if (envelopeContainer && envelopeWrapper) {
+    envelopeContainer.addEventListener('mousemove', (e) => {
+      if (envelopeWrapper.classList.contains('opened')) {
+        envelopeWrapper.style.transform = '';
+        return;
+      }
+      
+      const rect = envelopeContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      // Calculate tilt angles (limit to max 10 degrees)
+      const tiltX = -(y / (rect.height / 2)) * 10;
+      const tiltY = (x / (rect.width / 2)) * 10;
+      
+      envelopeWrapper.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+    });
+    
+    envelopeContainer.addEventListener('mouseleave', () => {
+      if (envelopeWrapper.classList.contains('opened')) return;
+      envelopeWrapper.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+  }
+  
+  // 3B. Dynamic Particle Burst Sparkle Generator
+  function createSparkleBurst(element) {
+    const container = document.getElementById('envelope-container');
+    if (!container) return;
+    
+    const rect = element.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    
+    // Middle position of wax seal relative to envelope overlay
+    const centerX = rect.left - containerRect.left + rect.width / 2;
+    const centerY = rect.top - containerRect.top + rect.height / 2;
+    
+    const particleCount = 28;
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'gold-sparkle';
+      
+      // Randomize shape clip paths: 50% circle, 25% diamond, 25% star
+      const shapeRand = Math.random();
+      if (shapeRand > 0.75) {
+        particle.classList.add('sparkle-star');
+      } else if (shapeRand > 0.5) {
+        particle.classList.add('sparkle-diamond');
+      }
+      
+      // Velocity vectors (x and y offsets)
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2 + Math.random() * 6;
+      const vx = Math.cos(angle) * speed * 12;
+      const vy = Math.sin(angle) * speed * 12;
+      
+      // Size variance (from 4px to 10px)
+      const size = 4 + Math.random() * 6;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      particle.style.left = `${centerX}px`;
+      particle.style.top = `${centerY}px`;
+      
+      // Custom variables passed to keyframes
+      particle.style.setProperty('--vx', `${vx}px`);
+      particle.style.setProperty('--vy', `${vy}px`);
+      particle.style.setProperty('--rot', `${Math.random() * 360}deg`);
+      
+      container.appendChild(particle);
+      
+      // Clean up DOM
+      setTimeout(() => particle.remove(), 1000);
+    }
+  }
+
   function startFrameAssembly() {
     document.body.classList.add('frame-sequence-active');
     
@@ -133,6 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Trigger envelope flap folding open and card sliding up (styled in CSS)
       envelopeWrapper.classList.add('opened');
       
+      // Trigger golden sparkle burst on click
+      createSparkleBurst(openEnvelopeBtn);
+      
       // Start background ambient floating petals immediately
       ambientCanvas.start('ambient');
       
@@ -140,17 +235,17 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         if (envelopeContainer) {
           envelopeContainer.style.opacity = '0';
-          envelopeContainer.style.transform = 'translateY(80px) scale(0.95)';
+          envelopeContainer.style.transform = 'translateY(120px) scale(0.92)';
         }
         startFrameAssembly();
-      }, 1500); // Wait for flap opening + card sliding transitions
+      }, 2200); // Wait for flap opening + full card slide transitions (2.2s total)
       
       // Stage 3: Clean up envelope from DOM after the frame has taken over
       setTimeout(() => {
         if (envelopeContainer) {
           envelopeContainer.remove();
         }
-      }, 1500 + frameAssemblyDuration + 600);
+      }, 2200 + frameAssemblyDuration + 600);
     });
   }
 

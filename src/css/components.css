@@ -353,7 +353,7 @@ body.frame-active #countdown-timer span:last-child {
   }
 }
 
-/* 2. Intro Envelope */
+/* 2. Intro Envelope (Upgraded with textures, 3D tilt, split seal, and springy counters) */
 #envelope-container {
   position: fixed;
   top: 0;
@@ -362,10 +362,13 @@ body.frame-active #countdown-timer span:last-child {
   height: 100vh;
   z-index: 9000;
   background-color: var(--color-beige);
+  background-image: 
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(250, 246, 238, 0.92) 0%, rgba(244, 239, 230, 0.45) 55%, rgba(197, 160, 89, 0.08) 100%),
+    var(--paper-texture);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1), transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
   perspective: 1200px;
 }
 
@@ -373,15 +376,24 @@ body.frame-active #countdown-timer span:last-child {
   position: relative;
   width: min(450px, 90vw);
   height: min(300px, 60vw);
-  background-color: #FAF6EE; /* Ivory envelope paper texture base */
+  background-color: #FAF6EE;
+  background-image: var(--paper-texture), linear-gradient(135deg, #FAF6EE 0%, #F5EFE4 100%);
   border-radius: 6px;
-  box-shadow: 0 15px 45px rgba(58, 53, 45, 0.12);
+  box-shadow: 0 20px 50px rgba(58, 53, 45, 0.15);
   perspective: 1000px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.8s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
   transform-style: preserve-3d;
+}
+
+.envelope-wrapper.opened {
+  /* Counter-motion: envelope moves down and rotates back slightly in 3D */
+  transform: translateY(40px) rotateX(12deg) scale(0.93) !important;
+  opacity: 0.7;
+  box-shadow: 0 8px 25px rgba(58, 53, 45, 0.08);
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, opacity 1.5s ease 0.6s, box-shadow 1.5s ease 0.6s;
 }
 
 .envelope-paper {
@@ -389,6 +401,7 @@ body.frame-active #countdown-timer span:last-child {
   width: 92%;
   height: 90%;
   background-color: var(--color-white);
+  background-image: var(--paper-texture), linear-gradient(to bottom, var(--color-white) 0%, #FAF6EE 100%);
   border: 1px solid rgba(197, 160, 89, 0.15);
   box-shadow: 0 4px 15px rgba(58, 53, 45, 0.03);
   display: flex;
@@ -397,8 +410,9 @@ body.frame-active #countdown-timer span:last-child {
   align-items: center;
   padding: var(--spacing-md);
   border-radius: 4px;
-  transform: translateY(0);
-  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.6s, box-shadow 1.2s ease 0.6s;
+  transform: translateY(0) rotate(0deg);
+  /* Upgraded with springy slide curve and staggered start */
+  transition: transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s, box-shadow 1.4s ease 0.8s;
   z-index: 2;
 }
 
@@ -427,6 +441,7 @@ body.frame-active #countdown-timer span:last-child {
   width: 100%;
   height: 50%;
   background-color: #FAF6EE;
+  background-image: var(--paper-texture), linear-gradient(to bottom, #FAF6EE 0%, #F5EFE4 100%);
   clip-path: polygon(0 0, 50% 100%, 100% 0);
   transform-origin: top center;
   z-index: 4;
@@ -441,53 +456,172 @@ body.frame-active #countdown-timer span:last-child {
 }
 
 .envelope-wrapper.opened .envelope-paper {
-  transform: translateY(-50%) scale(1.03);
-  box-shadow: 0 20px 45px rgba(58, 53, 45, 0.18);
+  /* Invite card slides completely out and tilts slightly like it floats */
+  transform: translateY(-112%) scale(1.08) rotate(-2.5deg);
+  box-shadow: 0 25px 60px rgba(58, 53, 45, 0.22);
   z-index: 5;
 }
 
 .envelope-seal {
-  width: 54px;
-  height: 54px;
-  background-color: var(--color-burgundy);
-  border-radius: 50%;
+  width: 76px;
+  height: 76px;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(106, 27, 41, 0.3);
   cursor: pointer;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  transition: transform var(--transition-fast), opacity 0.5s ease;
+  /* Soft bouncy scale on hover */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+}
+
+.wax-seal-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.seal-left, .seal-right {
+  transform-origin: 50px 50px;
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+.envelope-wrapper.opened .seal-left {
+  transform: translateX(-45px) translateY(-5px) rotate(-25deg) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.envelope-wrapper.opened .seal-right {
+  transform: translateX(45px) translateY(-5px) rotate(25deg) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .envelope-wrapper.opened .envelope-seal {
-  opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%) scale(0.7);
+  /* Seal-left and seal-right handle transitions inside the SVG */
 }
 
 .envelope-seal:hover {
-  transform: translate(-50%, -50%) scale(1.08);
+  transform: translate(-50%, -50%) scale(1.12);
 }
 
-.envelope-seal svg {
-  width: 22px;
-  height: 22px;
-  fill: var(--color-text-light);
+/* --- Envelope Invite Card Typography --- */
+.envelope-card-ornament {
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  letter-spacing: 0.3em;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.envelope-invite-eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(0.55rem, 1.5vw, 0.65rem);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: 2px;
 }
 
 .envelope-invite-text {
   font-family: var(--font-serif);
-  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+  font-size: clamp(1.05rem, 2.8vw, 1.3rem);
   color: var(--color-gold-dark);
-  margin-top: var(--spacing-sm);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.35;
+  font-weight: 300;
+}
+
+.envelope-invite-text em {
+  font-style: italic;
+  color: var(--color-text-muted);
+  font-size: 0.8em;
+}
+
+.envelope-invite-names {
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 4vw, 1.9rem);
+  font-weight: 600;
+  color: var(--color-text-dark);
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.envelope-gold-rule {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0;
+}
+
+.envelope-gold-rule span {
+  display: block;
+  height: 1px;
+  width: 60%;
+  background: linear-gradient(90deg, transparent 0%, var(--color-gold) 30%, var(--color-gold) 70%, transparent 100%);
+  opacity: 0.5;
+}
+
+.envelope-invite-date {
+  font-family: var(--font-sans);
+  font-size: clamp(0.55rem, 1.5vw, 0.65rem);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.envelope-invite-cta {
+  font-family: var(--font-sans);
+  font-size: clamp(0.5rem, 1.3vw, 0.6rem);
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  text-align: center;
+  margin-top: 8px;
+  opacity: 0.8;
+  animation: pulse-opacity 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+/* Gold Sparkle Particles */
+.gold-sparkle {
+  position: absolute;
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-gold-dark) 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 0 6px rgba(229, 196, 131, 0.8);
+  animation: sparkleFloat 1s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+.gold-sparkle.sparkle-diamond {
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.gold-sparkle.sparkle-star {
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
 /* 3. Floating Audio Widget */

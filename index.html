@@ -114,13 +114,62 @@
       <div class="envelope-wrapper" id="envelope-wrapper">
         <div class="envelope-flap"></div>
         <div class="envelope-paper">
-          <div class="envelope-invite-text">You are invited to the Wedding of<br><strong>Joshua & Maria</strong></div>
-          <p class="body-text text-center italic" style="margin-top: 15px; font-size: 0.85rem; color: var(--color-text-muted);">Click the wax seal to open</p>
+          <div class="envelope-card-ornament" aria-hidden="true">✦</div>
+          <div class="envelope-invite-eyebrow">You are cordially invited to the</div>
+          <div class="envelope-invite-text">Holy Matrimony<br><em>of</em></div>
+          <div class="envelope-invite-names">Joshua &amp; Maria</div>
+          <div class="envelope-gold-rule"><span></span></div>
+          <div class="envelope-invite-date">21 · November · 2026</div>
+          <p class="envelope-invite-cta">Click the wax seal to open</p>
         </div>
         <div class="envelope-seal pulse-glow" id="open-envelope-btn">
-          <!-- Elegant Gold Dove Icon -->
-          <svg viewBox="0 0 24 24">
-            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.5,8C17.3,8 18,8.7 18,9.5C18,10.3 17.3,11 16.5,11C15.7,11 15,10.3 15,9.5C15,8.7 15.7,8 16.5,8M9.5,10A2.5,2.5 0 0,1 12,12.5A2.5,2.5 0 0,1 9.5,15A2.5,2.5 0 0,1 7,12.5A2.5,2.5 0 0,1 9.5,10M14.5,14C15.3,14 16,14.7 16,15.5C16,16.3 15.3,17 14.5,17C13.7,17 13,16.3 13,15.5C13,14.7 13.7,14 14.5,14Z" />
+          <!-- Premium Organic Wax Seal SVG with Monogram and Split Clip-Path -->
+          <svg viewBox="0 0 100 100" class="wax-seal-svg">
+            <defs>
+              <clipPath id="clip-left">
+                <rect x="0" y="0" width="50" height="100" />
+              </clipPath>
+              <clipPath id="clip-right">
+                <rect x="50" y="0" width="50" height="100" />
+              </clipPath>
+              <filter id="seal-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-opacity="0.35" flood-color="#2d0a0f" />
+              </filter>
+            </defs>
+            
+            <!-- Left Side Group -->
+            <g class="seal-left">
+              <g clip-path="url(#clip-left)">
+                <!-- Organic Wax Blob Base -->
+                <path d="M50 4 C25 2, 8 20, 6 45 C4 70, 20 88, 48 94 C75 100, 94 82, 95 56 C96 30, 80 6, 50 4" fill="var(--color-burgundy)" filter="url(#seal-shadow)" />
+                <!-- Gold Ornate Border Rings -->
+                <circle cx="50" cy="50" r="37" fill="none" stroke="rgba(229, 196, 131, 0.45)" stroke-width="1.5" stroke-dasharray="1 3" />
+                <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(229, 196, 131, 0.65)" stroke-width="1.2" />
+                <!-- Script Monogram -->
+                <text x="50" y="58" font-family="'Cormorant Garamond', Georgia, serif" font-size="20" font-weight="700" fill="var(--color-gold-light)" text-anchor="middle" letter-spacing="1.5">J&M</text>
+                <!-- Decorative Gold Accent Dots -->
+                <circle cx="50" cy="24" r="1.5" fill="var(--color-gold)" opacity="0.85" />
+                <circle cx="50" cy="76" r="1.5" fill="var(--color-gold)" opacity="0.85" />
+                <path d="M35 50 Q50 45 65 50" fill="none" stroke="rgba(229, 196, 131, 0.25)" stroke-width="1" />
+              </g>
+            </g>
+
+            <!-- Right Side Group -->
+            <g class="seal-right">
+              <g clip-path="url(#clip-right)">
+                <!-- Organic Wax Blob Base -->
+                <path d="M50 4 C25 2, 8 20, 6 45 C4 70, 20 88, 48 94 C75 100, 94 82, 95 56 C96 30, 80 6, 50 4" fill="var(--color-burgundy)" filter="url(#seal-shadow)" />
+                <!-- Gold Ornate Border Rings -->
+                <circle cx="50" cy="50" r="37" fill="none" stroke="rgba(229, 196, 131, 0.45)" stroke-width="1.5" stroke-dasharray="1 3" />
+                <circle cx="50" cy="50" r="34" fill="none" stroke="rgba(229, 196, 131, 0.65)" stroke-width="1.2" />
+                <!-- Script Monogram -->
+                <text x="50" y="58" font-family="'Cormorant Garamond', Georgia, serif" font-size="20" font-weight="700" fill="var(--color-gold-light)" text-anchor="middle" letter-spacing="1.5">J&M</text>
+                <!-- Decorative Gold Accent Dots -->
+                <circle cx="50" cy="24" r="1.5" fill="var(--color-gold)" opacity="0.85" />
+                <circle cx="50" cy="76" r="1.5" fill="var(--color-gold)" opacity="0.85" />
+                <path d="M35 50 Q50 45 65 50" fill="none" stroke="rgba(229, 196, 131, 0.25)" stroke-width="1" />
+              </g>
+            </g>
           </svg>
         </div>
       </div>
