@@ -116,10 +116,14 @@ body.dark-theme .preloader-ring-path {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(100dvw, calc(100dvh * 0.7052238806));
-  height: min(100dvh, calc(100dvw / 0.7052238806));
-  max-width: 100%;
-  max-height: 100%;
+  --frame-canvas-ratio: 0.7052238806;
+  width: min(calc(100dvw - 1rem), calc((var(--svh) - 1rem) * 0.7052238806));
+  height: min(calc(var(--svh) - 1rem), calc((100dvw - 1rem) / 0.7052238806));
+  max-width: calc(100dvw - 1rem);
+  max-height: calc(var(--svh) - 1rem);
+  min-width: 0;
+  min-height: 0;
+  overflow: visible;
   transform: translate(-50%, -50%) scale(1.03);
   transform-origin: center;
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -131,32 +135,21 @@ body.dark-theme .preloader-ring-path {
 
 .wedding-frame-layer {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  display: block;
   object-fit: contain;
   object-position: center;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-.frame-bg {
-  opacity: 0;
-  transform: scale(1.015);
-  transition: opacity 0.9s ease, transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.frame-stage-visible .frame-bg {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.frame-stage-assembled .frame-bg {
-  opacity: 0;
-  transition-delay: 0.2s;
-}
-
 .frame-piece {
+  left: var(--frame-left);
+  top: var(--frame-top);
+  right: var(--frame-right, auto);
+  bottom: var(--frame-bottom, auto);
+  width: var(--frame-width);
+  height: var(--frame-height);
+  z-index: var(--frame-z, auto);
   opacity: 0;
   transform: translate3d(var(--frame-start-x, 0), var(--frame-start-y, 0), 0)
              rotate(var(--frame-start-rotate, 0deg))
@@ -181,6 +174,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-top-left {
+  --frame-left: 0%;
+  --frame-top: 0%;
+  --frame-width: 50%;
+  --frame-height: 49.0672%;
   --frame-start-x: -22%;
   --frame-start-y: -20%;
   --frame-start-rotate: -4deg;
@@ -188,6 +185,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-top-right {
+  --frame-left: 45.1058%;
+  --frame-top: 0%;
+  --frame-width: 54.8942%;
+  --frame-height: 28.8246%;
   --frame-start-x: 18%;
   --frame-start-y: -18%;
   --frame-start-rotate: 4deg;
@@ -195,6 +196,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-top-right-down {
+  --frame-left: 81.2169%;
+  --frame-top: 12.5%;
+  --frame-width: 8.3333%;
+  --frame-height: 4.8507%;
   --frame-start-x: 16%;
   --frame-start-y: -8%;
   --frame-start-scale: 0.78;
@@ -203,6 +208,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-left-middle {
+  --frame-left: 87.1693%;
+  --frame-top: 33.5821%;
+  --frame-width: 12.8307%;
+  --frame-height: 29.6642%;
   --frame-start-x: 20%;
   --frame-start-y: 2%;
   --frame-start-rotate: -3deg;
@@ -210,6 +219,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-bottom-left {
+  --frame-left: 0%;
+  --frame-top: 51.2127%;
+  --frame-width: 60.0529%;
+  --frame-height: 48.7873%;
   --frame-start-x: -24%;
   --frame-start-y: 18%;
   --frame-start-rotate: 4deg;
@@ -217,6 +230,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-bottom-right {
+  --frame-left: 44.1799%;
+  --frame-top: 56.25%;
+  --frame-width: 55.8201%;
+  --frame-height: 43.75%;
   --frame-start-x: 24%;
   --frame-start-y: 20%;
   --frame-start-rotate: -5deg;
@@ -224,6 +241,10 @@ body.dark-theme .preloader-ring-path {
 }
 
 .frame-couple-bottom-right {
+  --frame-left: 77.1164%;
+  --frame-top: 69.9627%;
+  --frame-width: 22.8836%;
+  --frame-height: 29.5709%;
   --frame-start-x: 18%;
   --frame-start-y: 16%;
   --frame-start-scale: 0.88;
@@ -234,6 +255,12 @@ body.dark-theme .preloader-ring-path {
 
 body.frame-active {
   background: var(--color-ivory);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body.frame-active::-webkit-scrollbar {
+  display: none;
 }
 
 body.frame-active #site-nav {
@@ -241,17 +268,30 @@ body.frame-active #site-nav {
 }
 
 body.frame-active #main-content {
-  width: min(100dvw, calc(100dvh * 0.7052238806));
-  max-width: 100%;
-  min-height: 100dvh;
+  width: min(calc(100dvw - 1rem), calc((var(--svh) - 1rem) * 0.7052238806));
+  max-width: calc(100dvw - 1rem);
+  height: min(calc(var(--svh) - 1rem), calc((100dvw - 1rem) / 0.7052238806));
+  max-height: calc(var(--svh) - 1rem);
+  min-height: 0;
   margin: 0 auto;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: var(--color-ivory);
-  background-image: url('/frame/background.png');
-  background-repeat: repeat-y;
+  background-image:
+    radial-gradient(ellipse 72% 42% at 85% 8%, rgba(244, 231, 218, 0.7), transparent 58%),
+    radial-gradient(ellipse 60% 44% at 8% 43%, rgba(244, 231, 218, 0.56), transparent 62%),
+    radial-gradient(ellipse 70% 52% at 98% 74%, rgba(244, 231, 218, 0.46), transparent 64%),
+    var(--paper-texture);
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
   background-position: top center;
-  background-size: 100% auto;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 200px 200px;
   box-shadow: 0 0 60px rgba(58, 53, 45, 0.1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body.frame-active #main-content::-webkit-scrollbar {
+  display: none;
 }
 
 body.frame-active #main-content > section,
@@ -272,11 +312,11 @@ body.frame-active .container {
 }
 
 body.frame-active #hero {
-  height: 100dvh !important;
-  min-height: 620px;
+  min-height: var(--svh);
+  height: var(--svh) !important;
   align-items: flex-start !important;
   padding-top: clamp(4.75rem, 13vh, 7rem);
-  padding-bottom: clamp(8rem, 18vh, 10rem);
+  padding-bottom: clamp(5rem, 12vh, 7rem);
 }
 
 body.frame-active #hero > div:first-child {
@@ -336,8 +376,8 @@ body.frame-active #countdown-timer span:last-child {
 
 @supports not (height: 100dvh) {
   .wedding-frame-viewport {
-    width: min(100vw, calc(100vh * 0.7052238806));
-    height: min(100vh, calc(100vw / 0.7052238806));
+    width: min(100vw, calc(var(--svh) * 0.7052238806));
+    height: min(var(--svh), calc(100vw / 0.7052238806));
     transform: translate(-50%, -50%) scale(1.03);
   }
 
@@ -346,17 +386,147 @@ body.frame-active #countdown-timer span:last-child {
   }
 
   body.frame-active #main-content {
-    width: min(100vw, calc(100vh * 0.7052238806));
+    width: min(100vw, calc(var(--svh) * 0.7052238806));
   }
 
   body.frame-active #hero {
-    height: 100vh !important;
+    height: var(--svh) !important;
   }
 }
 
 @media (max-width: 640px) {
+  body.frame-active {
+    overflow-x: hidden;
+  }
+
+  #wedding-frame-stage {
+    overflow-x: hidden;
+  }
+
+  .wedding-frame-viewport {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--svh, 100dvh);
+    max-width: 100%;
+    max-height: none;
+    transform: none;
+  }
+
+  .frame-stage-assembled .wedding-frame-viewport {
+    transform: none;
+  }
+
+  .wedding-frame-layer {
+    object-fit: contain;
+  }
+
+  .frame-top-left {
+    --frame-left: 0%;
+    --frame-top: 0%;
+    --frame-right: auto;
+    --frame-bottom: auto;
+    --frame-width: 54%;
+    --frame-height: 44%;
+    object-position: top left;
+    --frame-start-x: -46%;
+    --frame-start-y: -32%;
+  }
+
+  .frame-top-right {
+    --frame-left: auto;
+    --frame-top: 0%;
+    --frame-right: 0%;
+    --frame-bottom: auto;
+    --frame-width: 43%;
+    --frame-height: 26%;
+    object-position: top right;
+    --frame-start-x: 46%;
+    --frame-start-y: -32%;
+  }
+
+  .frame-top-right-down {
+    --frame-left: auto;
+    --frame-top: 10%;
+    --frame-right: 8%;
+    --frame-bottom: auto;
+    --frame-width: 12%;
+    --frame-height: 7%;
+    object-position: top right;
+    --frame-start-x: 58%;
+    --frame-start-y: -24%;
+  }
+
+  .frame-left-middle {
+    --frame-left: auto;
+    --frame-top: 27%;
+    --frame-right: 0%;
+    --frame-bottom: auto;
+    --frame-width: 18%;
+    --frame-height: 32%;
+    object-position: center right;
+    --frame-start-x: 52%;
+    --frame-start-y: 0%;
+  }
+
+  .frame-bottom-left {
+    --frame-left: 0%;
+    --frame-top: auto;
+    --frame-right: auto;
+    --frame-bottom: 0%;
+    --frame-width: 50%;
+    --frame-height: 40%;
+    object-position: bottom left;
+    --frame-start-x: -46%;
+    --frame-start-y: 34%;
+  }
+
+  .frame-bottom-right {
+    --frame-left: auto;
+    --frame-top: auto;
+    --frame-right: 0%;
+    --frame-bottom: 0%;
+    --frame-width: 59%;
+    --frame-height: 42%;
+    object-position: bottom right;
+    --frame-start-x: 44%;
+    --frame-start-y: 34%;
+  }
+
+  .frame-couple-bottom-right {
+    --frame-left: auto;
+    --frame-top: auto;
+    --frame-right: 2%;
+    --frame-bottom: 0%;
+    --frame-width: 30%;
+    --frame-height: 30%;
+    --frame-z: 100;
+    object-position: bottom right;
+    --frame-start-x: 48%;
+    --frame-start-y: 34%;
+  }
+
   body.frame-active #main-content {
-    width: 100vw;
+    width: 100%;
+    height: var(--svh, 100dvh);
+    max-width: 100%;
+    max-height: var(--svh, 100dvh);
+  }
+
+  body.frame-active #hero {
+    height: var(--svh, 100dvh) !important;
+    min-height: var(--svh, 100dvh);
+    align-items: center !important;
+    justify-content: center !important;
+    padding-top: clamp(2rem, 7vh, 3rem);
+    padding-bottom: clamp(2rem, 7vh, 3rem);
+  }
+
+  body.frame-active #hero h1 {
+    font-size: clamp(2rem, 8vw, 2.7rem);
+    white-space: normal;
   }
 }
 
@@ -366,7 +536,7 @@ body.frame-active #countdown-timer span:last-child {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: var(--svh);
   z-index: 9000;
   background-color: var(--color-beige);
   background-image: 

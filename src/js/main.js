@@ -21,6 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
     canvasEffect.start('celebration');
   });
 
+  // Set a stable CSS viewport height variable for mobile browsers.
+  // Android browser chrome can report a shorter visualViewport while the
+  // layout viewport is taller, so use the largest live viewport signal.
+  function getViewportHeight() {
+    return Math.max(
+      window.innerHeight || 0,
+      document.documentElement.clientHeight || 0,
+      window.visualViewport ? window.visualViewport.height : 0
+    );
+  }
+
+  function setSVH() {
+    const svh = getViewportHeight();
+    document.documentElement.style.setProperty('--svh', svh + 'px');
+    document.documentElement.style.setProperty('--vh', (svh * 0.01) + 'px');
+  }
+  setSVH();
+  window.addEventListener('resize', setSVH);
+  window.addEventListener('scroll', setSVH, { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setSVH);
+  }
+  window.addEventListener('orientationchange', () => setTimeout(setSVH, 200));
+
   // 2. Interactive Preloader Logic (Upgraded: smooth progressive minimum-duration load)
   const preloader = document.getElementById('interactive-preloader');
   const loadingRing = document.getElementById('loading-ring');
@@ -185,7 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function adjustFrameStageHeight() {
+    setSVH();
+  }
+
   function startFrameAssembly() {
+    adjustFrameStageHeight();
     document.body.classList.add('frame-sequence-active');
     
     if (weddingFrameStage) {
