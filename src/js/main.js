@@ -219,10 +219,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (weddingFrameStage) {
       weddingFrameStage.hidden = false;
+      weddingFrameStage.classList.remove('frame-stage-assembling', 'frame-stage-assembled');
       weddingFrameStage.classList.add('frame-stage-visible');
-      
+
+      // Mobile browsers can coalesce hidden -> visible -> assembling into one
+      // paint. Force the initial off-screen state to render before animating in.
+      void weddingFrameStage.offsetHeight;
       requestAnimationFrame(() => {
-        weddingFrameStage.classList.add('frame-stage-assembling');
+        requestAnimationFrame(() => {
+          weddingFrameStage.classList.add('frame-stage-assembling');
+        });
       });
     }
     

@@ -217,7 +217,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .frame-piece,
   .wedding-frame-viewport {
     animation: none !important;
     transition-duration: 0.01ms !important;
