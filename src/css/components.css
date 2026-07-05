@@ -431,8 +431,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-width: 54%;
     --frame-height: 44%;
     object-position: top left;
-    --frame-start-x: -4%;
-    --frame-start-y: -4%;
+    --frame-start-x: -46%;
+    --frame-start-y: -32%;
   }
 
   .frame-top-right {
@@ -443,8 +443,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-width: 43%;
     --frame-height: 26%;
     object-position: top right;
-    --frame-start-x: 3%;
-    --frame-start-y: -3%;
+    --frame-start-x: 46%;
+    --frame-start-y: -32%;
   }
 
   .frame-top-right-down {
@@ -455,8 +455,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-width: 12%;
     --frame-height: 7%;
     object-position: top right;
-    --frame-start-x: 4%;
-    --frame-start-y: -2%;
+    --frame-start-x: 58%;
+    --frame-start-y: -24%;
   }
 
   .frame-left-middle {
@@ -467,8 +467,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-width: 18%;
     --frame-height: 32%;
     object-position: center right;
-    --frame-start-x: 6%;
-    --frame-start-y: 2%;
+    --frame-start-x: 52%;
+    --frame-start-y: 0%;
   }
 
   .frame-bottom-left {
@@ -479,8 +479,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-width: 50%;
     --frame-height: 40%;
     object-position: bottom left;
-    --frame-start-x: -3%;
-    --frame-start-y: 3%;
+    --frame-start-x: -46%;
+    --frame-start-y: 34%;
   }
 
   .frame-bottom-right {
@@ -491,8 +491,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-width: 59%;
     --frame-height: 42%;
     object-position: bottom right;
-    --frame-start-x: 4%;
-    --frame-start-y: 4%;
+    --frame-start-x: 44%;
+    --frame-start-y: 34%;
   }
 
   .frame-couple-bottom-right {
@@ -504,8 +504,8 @@ body.frame-active #countdown-timer span:last-child {
     --frame-height: 30%;
     --frame-z: 100;
     object-position: bottom right;
-    --frame-start-x: 6%;
-    --frame-start-y: 6%;
+    --frame-start-x: 48%;
+    --frame-start-y: 34%;
   }
 
   body.frame-active #main-content {
