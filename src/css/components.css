@@ -298,7 +298,7 @@ body.frame-active .container {
 
 body.frame-active #hero {
   min-height: var(--svh);
-  height: auto;
+  height: var(--svh) !important;
   align-items: flex-start !important;
   padding-top: clamp(4.75rem, 13vh, 7rem);
   padding-bottom: clamp(5rem, 12vh, 7rem);
@@ -382,9 +382,11 @@ body.frame-active #countdown-timer span:last-child {
 @media (max-width: 640px) {
   .wedding-frame-viewport {
     height: calc(var(--vh, 1vh) * 100);
+    height: max(100dvh, calc(var(--vh, 1vh) * 100));
     width: min(100dvw, calc(var(--svh) * 0.7052238806));
     max-width: 100dvw;
     max-height: calc(var(--vh, 1vh) * 100);
+    max-height: max(100dvh, calc(var(--vh, 1vh) * 100));
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -397,12 +399,17 @@ body.frame-active #countdown-timer span:last-child {
   body.frame-active #main-content {
     width: min(100dvw, calc(var(--svh) * 0.7052238806));
     height: calc(var(--vh, 1vh) * 100);
+    height: max(100dvh, calc(var(--vh, 1vh) * 100));
     max-width: 100dvw;
     max-height: calc(var(--vh, 1vh) * 100);
+    max-height: max(100dvh, calc(var(--vh, 1vh) * 100));
   }
 
   body.frame-active #hero {
+    height: calc(var(--vh, 1vh) * 100) !important;
+    height: max(100dvh, calc(var(--vh, 1vh) * 100)) !important;
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: max(100dvh, calc(var(--vh, 1vh) * 100));
     padding-top: clamp(2rem, 7vh, 3rem);
     padding-bottom: clamp(2rem, 7vh, 3rem);
   }

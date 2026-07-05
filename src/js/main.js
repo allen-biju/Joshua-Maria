@@ -21,11 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     canvasEffect.start('celebration');
   });
 
-  // Set a stable CSS viewport height variable for mobile browsers
-  // and update it on resize/orientationchange. Use `--svh` (px) and
-  // `--vh` (1% of viewport) for calculations in CSS.
+  // Set a stable CSS viewport height variable for mobile browsers.
+  // Android browser chrome can report a shorter visualViewport while the
+  // layout viewport is taller, so use the largest live viewport signal.
   function getViewportHeight() {
-    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    return Math.max(
+      window.innerHeight || 0,
+      document.documentElement.clientHeight || 0,
+      window.visualViewport ? window.visualViewport.height : 0
+    );
   }
 
   function setSVH() {
