@@ -36,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setSVH();
   window.addEventListener('resize', setSVH);
   window.addEventListener('scroll', setSVH, { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setSVH);
+  }
   window.addEventListener('orientationchange', () => setTimeout(setSVH, 200));
 
   // 2. Interactive Preloader Logic (Upgraded: smooth progressive minimum-duration load)
@@ -203,13 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function adjustFrameStageHeight() {
-    const viewportHeight = getViewportHeight();
-    if (weddingFrameStage) {
-      weddingFrameStage.style.height = viewportHeight + 'px';
-    }
-    if (mainContent) {
-      mainContent.style.minHeight = viewportHeight + 'px';
-    }
     setSVH();
   }
 
