@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const distance = weddingDate - now;
 
     if (distance < 0) {
-      countdownTimer.innerHTML = `<p class="font-serif italic" style="font-size: 1.5rem; color: var(--color-gold);">Joshua & Maria are celebrating their wedding day today! 🕊</p>`;
+      countdownTimer.innerHTML = `<p class="font-serif italic" style="font-size: 1.5rem; color: var(--color-gold);">Joshua & Maria are celebrating their wedding day today!</p>`;
       return;
     }
 
@@ -611,25 +611,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    countdownTimer.innerHTML = `
-      <div style="text-align: center; min-width: 60px;">
-        <span style="display: block; font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--color-gold-dark);">${days}</span>
-        <span style="font-family: var(--font-sans); font-size: 0.65rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 0.05em;">Days</span>
+      const pad = (n) => String(n).padStart(2, '0');
+      countdownTimer.innerHTML = `
+      <div class="countdown-unit">
+        <span class="countdown-value">${days}</span>
+        <span class="countdown-label">Days</span>
       </div>
-      <div style="font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--color-gold-light);">:</div>
-      <div style="text-align: center; min-width: 60px;">
-        <span style="display: block; font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--color-gold-dark);">${hours}</span>
-        <span style="font-family: var(--font-sans); font-size: 0.65rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 0.05em;">Hrs</span>
+      <span class="countdown-separator">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-value">${pad(hours)}</span>
+        <span class="countdown-label">Hrs</span>
       </div>
-      <div style="font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--color-gold-light);">:</div>
-      <div style="text-align: center; min-width: 60px;">
-        <span style="display: block; font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--color-gold-dark);">${minutes}</span>
-        <span style="font-family: var(--font-sans); font-size: 0.65rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 0.05em;">Mins</span>
+      <span class="countdown-separator">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-value">${pad(minutes)}</span>
+        <span class="countdown-label">Mins</span>
       </div>
-      <div style="font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--color-gold-light);">:</div>
-      <div style="text-align: center; min-width: 60px;">
-        <span style="display: block; font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--color-gold-dark);">${seconds}</span>
-        <span style="font-family: var(--font-sans); font-size: 0.65rem; text-transform: uppercase; color: var(--color-text-muted); letter-spacing: 0.05em;">Secs</span>
+      <span class="countdown-separator">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-value">${pad(seconds)}</span>
+        <span class="countdown-label">Secs</span>
       </div>
     `;
   }

@@ -230,19 +230,13 @@
   <div id="main-content" style="opacity: 0; display: none; transition: opacity var(--transition-slow);">
 
     <!-- 4. Hero Section -->
-    <section id="hero"
-      style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-      <!-- Ken Burns background image layer -->
-      <div
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(rgba(250, 246, 238, 0.65), rgba(250, 246, 238, 0.8)), url('/src/assets/photos/hero-bg.jpeg') center/cover no-repeat; animation: kenBurns 20s infinite ease-in-out; will-change: transform;">
-      </div>
+    <section id="hero" class="hero-section">
+      <div class="hero-bg-layer"></div>
 
       <div class="container text-center" style="position: relative; z-index: 2;">
         <div class="reveal-element">
-          <p class="body-text italic"
-            style="letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: var(--spacing-sm);">Under God's
-            Grace</p>
-          <h1 class="split-text" style="margin-bottom: var(--spacing-sm);">Joshua & Maria</h1>
+          <p class="hero-eyebrow">Under God's Grace</p>
+          <h1 class="split-text">Joshua & Maria</h1>
           <div class="divider">
             <span class="divider-icon">
               <svg viewBox="0 0 24 24">
@@ -250,28 +244,22 @@
               </svg>
             </span>
           </div>
-          <p class="font-serif italic"
-            style="font-size: clamp(1.4rem, 3vw, 2rem); color: var(--color-text-dark); margin-bottom: var(--spacing-lg);">
-            Are getting married</p>
-          <p class="body-text" style="letter-spacing: 0.15em; font-weight: 500; margin-bottom: var(--spacing-xs);">
-            SATURDAY, 21 NOVEMBER 2026</p>
-          <p class="body-text italic" style="font-size: 0.95rem; margin-bottom: var(--spacing-xl);">Kuravilangad,
-            Kottayam, Kerala</p>
+          <p class="hero-subtitle">Are getting married</p>
 
-          <!-- Countdown Timer -->
-          <div class="wedding-countdown-card"
-            style="display: inline-block; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: var(--glass-blur); border-radius: 8px; padding: var(--spacing-md) var(--spacing-lg); box-shadow: var(--shadow-md); margin-top: var(--spacing-md);">
-            <p
-              style="font-family: var(--font-sans); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--spacing-xs);">
-              Time Until Our Day</p>
-            <div id="countdown-timer" style="display: flex; justify-content: center; gap: var(--spacing-md);">
+          <div class="hero-details">
+            <span class="hero-date">Saturday, 21 November 2026</span>
+            <span class="hero-location">Kuravilangad, Kottayam, Kerala</span>
+          </div>
+
+          <div class="wedding-countdown-card">
+            <p class="countdown-label">Time Until Our Day</p>
+            <div id="countdown-timer">
               <!-- Rendered via JS -->
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Breathing Scroll Down Indicator -->
       <div class="scroll-down-indicator" id="hero-scroll-indicator">
         <div class="scroll-mouse">
           <div class="scroll-mouse-wheel"></div>
@@ -281,28 +269,19 @@
     </section>
 
     <!-- 5. Bible Verse & Parental Invitation Section -->
-    <section id="blessing" style="background-color: var(--color-white);">
+    <section id="blessing" class="blessing-section">
       <div class="container container-narrow text-center">
         <div class="reveal-element">
-          <!-- Stained Glass SVG Icon -->
           <div class="stained-glass-container">
             <svg viewBox="0 0 100 100">
-              <!-- Stained glass rays radiating behind -->
               <circle cx="50" cy="40" r="30" class="stained-glass-rays" fill="none" stroke="url(#goldGrad)"
                 stroke-width="1.5" stroke-dasharray="4, 4" opacity="0.3" />
-
-              <!-- Cross layout with colorful/geometric panels -->
-              <!-- Left panel -->
               <path d="M 44 20 L 44 34 L 30 34 L 30 40 L 44 40 L 44 80 L 50 80 L 50 20 Z" class="stained-glass-path"
                 fill="rgba(197, 160, 89, 0.15)" stroke="var(--color-gold)" stroke-width="1" />
-              <!-- Right panel -->
               <path d="M 56 20 L 56 34 L 70 34 L 70 40 L 56 40 L 56 80 L 50 80 L 50 20 Z" class="stained-glass-path"
                 fill="rgba(210, 159, 150, 0.15)" stroke="var(--color-gold)" stroke-width="1" />
-
-              <!-- Center diamond seal -->
               <polygon points="50,32 58,40 50,48 42,40" fill="var(--color-burgundy)" stroke="var(--color-gold)"
                 stroke-width="1.5" opacity="0.85" />
-
               <defs>
                 <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="var(--color-gold-light)" />
@@ -311,37 +290,32 @@
               </defs>
             </svg>
           </div>
-          <p class="font-serif italic"
-            style="font-size: clamp(1.3rem, 2.5vw, 1.8rem); line-height: 1.6; color: var(--color-gold-dark); max-width: 600px; margin: 0 auto var(--spacing-lg);">
+          <blockquote class="bible-verse">
             "And now these three remain: faith, hope and love. But the greatest of these is love."
+          </blockquote>
+          <p class="bible-ref">
+            &mdash; 1 Corinthians 13:13
           </p>
-          <p class="body-text"
-            style="font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--spacing-xl);">
-            — 1 Corinthians 13:13</p>
 
-          <div class="divider" style="margin: var(--spacing-lg) auto;"></div>
+          <div class="divider"></div>
 
           <div class="invitation-grid">
             <div class="reveal-element reveal-stagger-1 invitation-column-card">
               <h3>Invitation from Bride's Family</h3>
-              <p class="body-text italic" style="font-size: 1.1rem; color: var(--color-text-dark); margin-bottom: 6px;">
-                Mr. Thomas Joseph & Mrs. Elizabeth Thomas</p>
+              <p class="invitation-parents">Mr. Thomas Joseph & Mrs. Elizabeth Thomas</p>
               <p class="body-text">request the honour of your presence at the wedding of their beloved daughter</p>
-              <p class="font-serif" style="font-size: 1.6rem; color: var(--color-gold-dark); margin-top: 10px;">Maria
-                Thomas</p>
+              <p class="invitation-name">Maria Thomas</p>
             </div>
 
             <div class="reveal-element reveal-stagger-2 invitation-divider">
-              <p class="body-text italic" style="font-size: 1.2rem; color: var(--color-gold);">to</p>
+              <p class="invitation-to">to</p>
             </div>
 
             <div class="reveal-element reveal-stagger-3 invitation-column-card">
               <h3>Invitation from Groom's Family</h3>
-              <p class="body-text italic" style="font-size: 1.1rem; color: var(--color-text-dark); margin-bottom: 6px;">
-                Mr. Mathew George & Mrs. Susan Mathew</p>
+              <p class="invitation-parents">Mr. Mathew George & Mrs. Susan Mathew</p>
               <p class="body-text">request the honour of your presence at the wedding of their beloved son</p>
-              <p class="font-serif" style="font-size: 1.6rem; color: var(--color-gold-dark); margin-top: 10px;">Joshua
-                Mathew</p>
+              <p class="invitation-name">Joshua Mathew</p>
             </div>
           </div>
         </div>
@@ -349,8 +323,7 @@
     </section>
 
     <!-- 6. Our Story Section -->
-    <section id="story"
-      style="background-color: var(--color-beige); background-image: linear-gradient(rgba(244, 239, 230, 0.4), rgba(244, 239, 230, 0.4)), url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23c5a059\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+    <section id="story" class="story-section">
       <div class="container">
         <div class="reveal-element">
           <h2>Our Story</h2>
@@ -360,13 +333,12 @@
         </div>
 
         <div class="story-grid-row">
-          <!-- Image left / Text Right -->
           <div class="reveal-element reveal-stagger-1 story-img-container">
             <img src="/src/assets/photos/story-meet.png" alt="Joshua & Maria first meeting">
           </div>
           <div class="reveal-element reveal-stagger-2 story-text-card">
             <h3>How We Met</h3>
-            <p class="body-text" style="margin-bottom: var(--spacing-md);">
+            <p class="body-text">
               Joshua and Maria first met during a church youth retreat in Kochi. What started as a friendship grew
               stronger through years of shared faith, laughter, and unwavering support. Together they have built a
               relationship rooted in love, trust, and God's grace.
@@ -378,12 +350,10 @@
         </div>
 
         <div class="story-grid-row proposal-row">
-          <!-- Text left / Image Right -->
           <div class="reveal-element reveal-stagger-2 story-text-card">
             <h3>The Proposal</h3>
-            <p class="body-text" style="margin-bottom: var(--spacing-xs);"><strong>Date:</strong> 18 January 2026</p>
-            <p class="body-text" style="margin-bottom: var(--spacing-sm);"><strong>Venue:</strong> St. Francis Xavier
-              Parish Hall, Kochi</p>
+            <p class="body-text"><strong>Date:</strong> 18 January 2026</p>
+            <p class="body-text"><strong>Venue:</strong> St. Francis Xavier Parish Hall, Kochi</p>
             <p class="body-text">
               After Sunday Mass, Joshua surprised Maria with a heartfelt proposal surrounded by both families. Their
               engagement became a joyful celebration filled with prayers, blessings, and love.
@@ -397,91 +367,80 @@
     </section>
 
     <!-- 7. Timeline Section -->
-    <section id="timeline" style="background-color: var(--color-white);">
+    <section id="timeline" class="timeline-section">
       <div class="container">
         <div class="reveal-element">
           <h2>Wedding Timeline</h2>
-          <p class="body-text text-center italic" style="margin-bottom: var(--spacing-sm);">Chronology of Our
-            Celebrations</p>
+          <p class="section-subtitle">Chronology of Our Celebrations</p>
           <div class="divider"><span class="divider-icon"><svg viewBox="0 0 24 24">
                 <path d="M12 2L14.5 8.5L21 11L14.5 13.5L12 20L9.5 13.5L3 11L9.5 8.5L12 2Z" />
               </svg></span></div>
         </div>
 
         <div class="timeline">
-          <!-- Active running progress line -->
           <div class="timeline-progress-line" id="timeline-progress"></div>
 
-          <!-- Bridal Shower -->
           <div class="timeline-node reveal-element">
             <div class="timeline-marker"></div>
             <div class="timeline-card tilt-card" data-tilt-max="6">
               <div class="tilt-card-glare"></div>
-              <span class="timeline-time">5:30 PM • 20 November 2026</span>
+              <span class="timeline-time">5:30 PM &bull; 20 November 2026</span>
               <h3>Bridal Shower</h3>
               <p class="timeline-desc">Bride's Residence. A pre-wedding celebration dedicated to the bride with fun,
                 laughter, and family blessings.</p>
             </div>
           </div>
 
-          <!-- Family Prayer -->
           <div class="timeline-node reveal-element">
             <div class="timeline-marker"></div>
             <div class="timeline-card tilt-card" data-tilt-max="6">
               <div class="tilt-card-glare"></div>
-              <span class="timeline-time">7:00 PM • 20 November 2026</span>
+              <span class="timeline-time">7:00 PM &bull; 20 November 2026</span>
               <h3>Family Prayer & Blessing</h3>
               <p class="timeline-desc">Bride's Home. A traditional prayer gathering seeking blessings from elders and
                 family members for the union.</p>
             </div>
           </div>
 
-          <!-- Holy Matrimony -->
           <div class="timeline-node reveal-element">
             <div class="timeline-marker"></div>
             <div class="timeline-card tilt-card" data-tilt-max="6">
               <div class="tilt-card-glare"></div>
-              <span class="timeline-time">10:00 AM • 21 November 2026</span>
+              <span class="timeline-time">10:00 AM &bull; 21 November 2026</span>
               <h3>Holy Matrimony</h3>
               <p class="timeline-desc">St. Mary's Forane Church, Kuravilangad. The sacred matrimonial service uniting
                 Joshua and Maria.</p>
-              <div style="display: flex; gap: 10px; margin-top: 10px;">
+              <div class="timeline-actions">
                 <a href="https://maps.google.com/?q=St+Mary%27s+Forane+Church+Kuravilangad+Kottayam+Kerala"
-                  class="btn btn-secondary btn-shimmer" style="padding: 6px 12px; font-size: 0.7rem;" target="_blank"
-                  rel="noopener">Google Maps</a>
-                <button class="btn btn-secondary btn-shimmer add-cal-btn" style="padding: 6px 12px; font-size: 0.7rem;"
-                  data-event="matrimony">Add to Calendar</button>
+                  class="btn btn-secondary" target="_blank" rel="noopener">Google Maps</a>
+                <button class="btn btn-secondary add-cal-btn" data-event="matrimony">Add to Calendar</button>
               </div>
             </div>
           </div>
 
-          <!-- Wedding Lunch -->
           <div class="timeline-node reveal-element">
             <div class="timeline-marker"></div>
             <div class="timeline-card tilt-card" data-tilt-max="6">
               <div class="tilt-card-glare"></div>
-              <span class="timeline-time">12:30 PM • 21 November 2026</span>
+              <span class="timeline-time">12:30 PM &bull; 21 November 2026</span>
               <h3>Wedding Lunch</h3>
               <p class="timeline-desc">Church Dining Hall. Traditional Kerala wedding lunch served immediately following
                 the matrimony ceremony.</p>
             </div>
           </div>
 
-          <!-- Wedding Reception -->
           <div class="timeline-node reveal-element">
             <div class="timeline-marker"></div>
             <div class="timeline-card tilt-card" data-tilt-max="6">
               <div class="tilt-card-glare"></div>
-              <span class="timeline-time">6:30 PM • 21 November 2026</span>
+              <span class="timeline-time">6:30 PM &bull; 21 November 2026</span>
               <h3>Wedding Reception</h3>
               <p class="timeline-desc">Windsor Castle Convention Centre, Kottayam. An evening of celebration, banquet
                 dining, music, and toastings.</p>
-              <div style="display: flex; gap: 10px; margin-top: 10px;">
+              <div class="timeline-actions">
                 <a href="https://maps.google.com/?q=Windsor+Castle+Convention+Centre+Kottayam+Kerala"
-                  class="btn btn-secondary btn-shimmer" style="padding: 6px 12px; font-size: 0.7rem;" target="_blank"
-                  rel="noopener">Google Maps</a>
-                <button class="btn btn-secondary btn-shimmer add-cal-btn" style="padding: 6px 12px; font-size: 0.7rem;"
-                  data-event="reception">Add to Calendar</button>
+                  class="btn btn-secondary" target="_blank" rel="noopener">Google Maps</a>
+                <button class="btn btn-secondary add-cal-btn" data-event="reception">Add to Calendar</button>
               </div>
             </div>
           </div>
@@ -490,8 +449,7 @@
     </section>
 
     <!-- 8. Dress Code & Event Guidelines -->
-    <section id="dress-code"
-      style="background-color: var(--color-ivory); border-top: 1px solid var(--color-gold-light); border-bottom: 1px solid var(--color-gold-light);">
+    <section id="dress-code" class="dress-code-section">
       <div class="container text-center">
         <div class="reveal-element">
           <h2>Dress Code</h2>
@@ -504,8 +462,8 @@
           <div class="reveal-element reveal-stagger-1 tilt-card dress-code-card" data-tilt-max="5">
             <div class="tilt-card-glare"></div>
             <h3>Church Ceremony</h3>
-            <p class="body-text highlight-subtitle">Traditional formal elegance</p>
-            <p class="body-text card-details">
+            <p class="highlight-subtitle">Traditional formal elegance</p>
+            <p class="card-details">
               <strong>Ladies:</strong> Elegant Saree, Gown, or Salwar.<br>
               <strong>Gentlemen:</strong> Suit, Blazer, or Traditional Formal Wear.
             </p>
@@ -514,10 +472,10 @@
           <div class="reveal-element reveal-stagger-2 tilt-card dress-code-card" data-tilt-max="5">
             <div class="tilt-card-glare"></div>
             <h3>Reception</h3>
-            <p class="body-text highlight-subtitle">Formal Evening Wear</p>
-            <p class="body-text card-details">
-              DRESS CODE: Formal suits, evening gowns, tuxedo blazers, or formal designer wear. Show up looking your
-              absolute best!
+            <p class="highlight-subtitle">Formal Evening Wear</p>
+            <p class="card-details">
+              Formal suits, evening gowns, tuxedo blazers, or formal designer wear. Show up looking your
+              absolute best.
             </p>
           </div>
         </div>
@@ -525,7 +483,7 @@
     </section>
 
     <!-- 9. Travel & Accommodations -->
-    <section id="travel" style="background-color: var(--color-white);">
+    <section id="travel" class="travel-section">
       <div class="container">
         <div class="reveal-element text-center">
           <h2>Travel & Logistics</h2>
@@ -537,12 +495,12 @@
         <div class="travel-grid">
           <div class="reveal-element reveal-stagger-1 travel-card">
             <h3>Accommodations</h3>
-            <p class="body-text" style="margin-bottom: var(--spacing-md);">
+            <p class="body-text">
               We have blocked rooms for out-of-town guests at these local hotels in Kottayam. Please mention the
-              **Joshua & Maria Wedding** to claim special rates:
+              <strong>Joshua & Maria Wedding</strong> to claim special rates:
             </p>
             <ul class="travel-accommodations-list">
-              <li><strong>The Windsor Castle</strong> (Reception Venue)</li>
+              <li><strong>The Windsor Castle</strong> <span class="accomm-note">Reception Venue</span></li>
               <li><strong>Hotel Aida</strong></li>
               <li><strong>Hotel Arcadia</strong></li>
             </ul>
@@ -551,17 +509,40 @@
           <div class="reveal-element reveal-stagger-2 travel-card">
             <h3>Transport & Parking</h3>
             <div class="transport-guideline">
-              <span class="transport-icon">🚙</span>
+              <span class="transport-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="14" rx="2" ry="2"/>
+                  <line x1="3" y1="9" x2="21" y2="9"/>
+                  <line x1="9" y1="21" x2="9" y2="17"/>
+                  <line x1="15" y1="21" x2="15" y2="17"/>
+                </svg>
+              </span>
               <p class="body-text"><strong>Parking:</strong> Free ample parking is available at both St. Mary's Forane
                 Church and Windsor Castle Convention Centre.</p>
             </div>
             <div class="transport-guideline">
-              <span class="transport-icon">🚗</span>
+              <span class="transport-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="4.5" cy="17.5" r="2.5"/>
+                  <circle cx="17.5" cy="17.5" r="2.5"/>
+                  <path d="M7 17h10"/>
+                  <path d="M16 5l3 4h-3V5z"/>
+                  <path d="M2 10h14"/>
+                  <path d="M8 14h8"/>
+                </svg>
+              </span>
               <p class="body-text"><strong>Valet Service:</strong> Valet parking service will be active at the Reception
                 entrance at Windsor Castle.</p>
             </div>
             <div class="transport-guideline">
-              <span class="transport-icon">🚌</span>
+              <span class="transport-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="12" y="3" width="10" height="14" rx="1"/>
+                  <rect x="2" y="7" width="10" height="10" rx="1"/>
+                  <line x1="8" y1="21" x2="8" y2="17"/>
+                  <line x1="18" y1="21" x2="18" y2="17"/>
+                </svg>
+              </span>
               <p class="body-text"><strong>Shuttles:</strong> Complimentary shuttle pickup will run from Hotel Aida and
                 Hotel Arcadia to the venues before each ceremony.</p>
             </div>
@@ -621,11 +602,11 @@
     </section>
 
     <!-- 11. RSVP Section -->
-    <section id="rsvp" style="background-color: var(--color-white);">
+    <section id="rsvp" class="rsvp-section">
       <div class="container container-narrow">
         <div class="reveal-element text-center">
           <h2>Digital RSVP</h2>
-          <p class="body-text italic" style="margin-bottom: var(--spacing-sm);">Please respond by 30 October 2026</p>
+          <p class="rsvp-deadline">Please respond by 30 October 2026</p>
           <div class="divider"><span class="divider-icon"><svg viewBox="0 0 24 24">
                 <path d="M12 2L14.5 8.5L21 11L14.5 13.5L12 20L9.5 13.5L3 11L9.5 8.5L12 2Z" />
               </svg></span></div>
@@ -656,35 +637,28 @@
               </div>
             </div>
 
-            <!-- Form Submission Button -->
             <div class="rsvp-buttons">
-              <button type="submit" class="btn btn-primary btn-shimmer" id="rsvp-submit-btn" style="width: 100%;">Submit
-                RSVP</button>
+              <button type="submit" class="btn btn-primary btn-shimmer" id="rsvp-submit-btn">Submit RSVP</button>
             </div>
           </form>
 
-          <!-- Success screen -->
           <div id="rsvp-success" style="display: none; text-align: center; padding: var(--spacing-md) 0;">
-            <div class="divider-icon" style="justify-content: center; margin-bottom: var(--spacing-sm);">
-              <svg viewBox="0 0 24 24" width="48" height="48" style="stroke: var(--color-sage);">
+            <div class="rsvp-success-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
               </svg>
             </div>
-            <h3 style="color: var(--color-gold-dark); margin-bottom: var(--spacing-sm);">Thank You!</h3>
+            <h3 class="rsvp-success-title">Thank You</h3>
             <p class="body-text" id="rsvp-success-message">
               Your RSVP response has been successfully received. We are so excited to celebrate under His grace with
-              you!
+              you.
             </p>
           </div>
         </div>
 
-        <!-- Registry / Gifts request -->
-        <div class="reveal-element text-center"
-          style="margin-top: var(--spacing-xl); padding: var(--spacing-md); border-top: 1px solid var(--color-gold-light);">
-          <h3
-            style="font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 6px; font-style: italic; color: var(--color-text-dark);">
-            A Note on Gifts</h3>
-          <p class="body-text italic" style="font-size: 0.95rem; max-width: 600px; margin: 0 auto;">
+        <div class="gifts-note reveal-element text-center">
+          <h3 class="gifts-note-title">A Note on Gifts</h3>
+          <p class="gifts-note-text">
             "Your love, prayers, and presence are the greatest gifts we could receive. We humbly request no boxed
             gifts."
           </p>
@@ -693,34 +667,36 @@
     </section>
 
     <!-- 12. Footer Section -->
-    <footer id="footer"
-      style="background-color: var(--color-beige); border-top: 1px solid var(--color-gold-light); padding: var(--spacing-xl) 0;">
+    <footer id="footer" class="site-footer">
       <div class="container text-center">
         <div class="reveal-element">
-          <h2 class="font-serif"
-            style="font-size: 2.2rem; color: var(--color-gold-dark); margin-bottom: var(--spacing-xs);">Joshua & Maria
-          </h2>
-          <p class="body-text italic"
-            style="letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
-            #JoshuaFoundHisMaria</p>
+          <h2 class="footer-couple-name">Joshua & Maria</h2>
+          <p class="footer-hashtag">#JoshuaFoundHisMaria</p>
 
-          <div class="divider" style="margin: var(--spacing-sm) auto var(--spacing-md); width: 60px;"></div>
+          <div class="divider footer-divider"></div>
 
-          <p class="body-text"
-            style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; font-weight: 500;">
-            Wedding Coordination
-          </p>
-          <p class="body-text" style="font-size: 0.95rem; color: var(--color-text-dark); margin-bottom: 4px;">
-            <strong>Grace Events Kerala</strong>
-          </p>
-          <p class="body-text" style="font-size: 0.9rem; margin-bottom: var(--spacing-lg);">
-            📞 +91 98765 43210 &nbsp;|&nbsp; ✉️ <a href="mailto:hello@graceevents.in"
-              style="border-bottom: 1px solid var(--color-rose);">hello@graceevents.in</a>
-          </p>
+          <p class="footer-coordination-label">Wedding Coordination</p>
+          <p class="footer-coordination-name">Grace Events Kerala</p>
 
-          <p class="body-text"
-            style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: var(--spacing-lg);">
-            © 2026 Joshua & Maria. All rights reserved. Created with ❤️ under His grace.
+          <div class="contact-info">
+            <span class="contact-item">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              +91 98765 43210
+            </span>
+            <span class="contact-separator"></span>
+            <span class="contact-item">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:hello@graceevents.in">hello@graceevents.in</a>
+            </span>
+          </div>
+
+          <p class="footer-copyright">
+            &copy; 2026 Joshua &amp; Maria. All rights reserved. Created with love under His grace.
           </p>
         </div>
       </div>

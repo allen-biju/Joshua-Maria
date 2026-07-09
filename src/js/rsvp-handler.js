@@ -84,9 +84,9 @@ export class RSVPHandler {
       // Update success message customized to attendance choice
       const successMessage = document.getElementById('rsvp-success-message');
       if (attendance === 'no') {
-        successMessage.innerHTML = `Thank you, ${name}. Your response has been received. We are sorry you cannot make it, but we appreciate your prayers and blessings! 🕊`;
+        successMessage.innerHTML = `Thank you, ${name}. Your response has been received. We are sorry you cannot make it, but we appreciate your prayers and blessings.`;
       } else {
-        successMessage.innerHTML = `Thank you, ${name}! Your RSVP has been received. We look forward to celebrating our Holy Matrimony with you on 21 November 2026. 🤍`;
+        successMessage.innerHTML = `Thank you, ${name}! Your RSVP has been received. We look forward to celebrating our Holy Matrimony with you on 21 November 2026.`;
       }
 
       this.successScreen.style.display = 'block';
