@@ -311,6 +311,7 @@ body.frame-active .container {
   padding-right: clamp(0.75rem, 5vw, 2.25rem);
 }
 
+
 body.frame-active #hero {
   min-height: var(--svh);
   height: var(--svh) !important;
@@ -345,21 +346,23 @@ body.frame-active #hero .divider {
 }
 
 body.frame-active .wedding-countdown-card {
-  max-width: min(88%, 300px);
-  padding: 0.65rem 0.75rem !important;
-  margin-top: 0.3rem !important;
-  transform: translateY(-0.45rem);
+  max-width: min(92%, 340px);
+  padding: 0.65rem 0.85rem !important;
+  margin-top: 0.4rem !important;
+  border-radius: 12px;
 }
 
 body.frame-active #countdown-timer {
   display: grid !important;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.3rem !important;
+  gap: 0.35rem !important;
   align-items: center;
 }
 
 body.frame-active .countdown-unit {
   min-width: 0 !important;
+  padding: 4px 6px !important;
+  border-radius: 8px !important;
 }
 
 body.frame-active .countdown-separator {
@@ -1388,17 +1391,22 @@ body.frame-active .countdown-label {
 /* 11. Breathing Scroll Down Indicator */
 .scroll-down-indicator {
   position: absolute;
-  bottom: clamp(15px, 4vh, 35px);
+  bottom: clamp(20px, 5vh, 45px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
   z-index: 5;
-  transition: opacity var(--transition-medium);
-  opacity: 0.9;
+  transition: opacity var(--transition-medium), transform 0.3s ease;
+  opacity: 0.85;
+}
+
+.scroll-down-indicator:hover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(3px);
 }
 
 .scroll-down-indicator.hidden {
@@ -1429,10 +1437,12 @@ body.frame-active .countdown-label {
 .scroll-label {
   font-family: var(--font-sans);
   font-size: 0.6rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-gold-dark);
+  margin-top: 2px;
+  text-shadow: 0 1px 2px rgba(250, 246, 238, 0.855);
 }
 
 /* 12. Button Glitter/Shimmer effect */

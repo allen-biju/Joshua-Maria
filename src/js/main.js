@@ -360,12 +360,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  let lastScrollY = window.scrollY;
+  let lastScrollY = 0;
   let scrollTicking = false;
 
   function updateScrollMetrics() {
-    const currentScrollY = window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const isFrameActive = document.body.classList.contains('frame-active');
+    const scrollContainer = isFrameActive 
+      ? (document.getElementById('main-content') || document.documentElement)
+      : (document.scrollingElement || document.documentElement);
+      
+    const currentScrollY = isFrameActive ? scrollContainer.scrollTop : window.scrollY;
+    const documentHeight = isFrameActive
+      ? scrollContainer.scrollHeight - scrollContainer.clientHeight
+      : document.documentElement.scrollHeight - window.innerHeight;
 
     // Calculate scroll percentage (0 to 1)
     const scrollPercent = documentHeight > 0 ? currentScrollY / documentHeight : 0;
@@ -509,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       scrollTicking = true;
     }
-  });
+  }, { capture: true, passive: true });
   
   // Trigger initial metrics run
   updateScrollMetrics();
@@ -517,7 +524,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Back-to-Top smooth scroll
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const isFrameActive = document.body.classList.contains('frame-active');
+      const scrollContainer = isFrameActive ? document.getElementById('main-content') : null;
+      if (scrollContainer) {
+        scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 
@@ -588,6 +601,66 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.setProperty('--card-tilt-x', '0deg');
         card.style.setProperty('--card-tilt-y', '0deg');
       });
+    });
+  }
+
+  // Hero Parallax Mouse Interaction
+  const heroSectionEl = document.getElementById('hero');
+  const heroBgLayerEl = document.querySelector('.hero-bg-layer');
+  const heroContentEl = document.querySelector('#hero .reveal-element');
+  const countdownCardEl = document.querySelector('.wedding-countdown-card');
+
+  if (heroSectionEl && !isTouchDevice) {
+    heroSectionEl.addEventListener('mousemove', (e) => {
+      const rect = heroSectionEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const width = rect.width;
+      const height = rect.height;
+      
+      // Normalized coordinates from center (-1 to 1)
+      const pctX = (x - width / 2) / (width / 2);
+      const pctY = (y - height / 2) / (height / 2);
+      
+      // Translate background opposite to mouse, translate content with mouse
+      const bgX = (pctX * -25).toFixed(2);
+      const bgY = (pctY * -25).toFixed(2);
+      
+      const contentX = (pctX * 15).toFixed(2);
+      const contentY = (pctY * 15).toFixed(2);
+      
+      const cardX = (pctX * 8).toFixed(2);
+      const cardY = (pctY * 8).toFixed(2);
+      
+      if (heroBgLayerEl) {
+        heroBgLayerEl.style.transform = `translate3d(${bgX}px, ${bgY}px, 0)`;
+      }
+      if (heroContentEl) {
+        const heroTitle = heroContentEl.querySelector('h1');
+        const heroSubtitle = heroContentEl.querySelector('.hero-subtitle');
+        const heroEyebrow = heroContentEl.querySelector('.hero-eyebrow');
+        const heroDetails = heroContentEl.querySelector('.hero-details');
+        const heroDivider = heroContentEl.querySelector('.divider');
+        
+        if (heroTitle) heroTitle.style.transform = `translate3d(${contentX}px, ${contentY}px, 0)`;
+        if (heroSubtitle) heroSubtitle.style.transform = `translate3d(${contentX * 0.8}px, ${contentY * 0.8}px, 0)`;
+        if (heroEyebrow) heroEyebrow.style.transform = `translate3d(${contentX * 0.5}px, ${contentY * 0.5}px, 0)`;
+        if (heroDivider) heroDivider.style.transform = `translate3d(${contentX * 0.6}px, ${contentY * 0.6}px, 0)`;
+        if (heroDetails) heroDetails.style.transform = `translate3d(${contentX * 0.7}px, ${contentY * 0.7}px, 0)`;
+      }
+      if (countdownCardEl) {
+        countdownCardEl.style.transform = `translate3d(${cardX}px, ${cardY}px, 0)`;
+      }
+    });
+
+    heroSectionEl.addEventListener('mouseleave', () => {
+      if (heroBgLayerEl) heroBgLayerEl.style.transform = 'translate3d(0, 0, 0)';
+      if (countdownCardEl) countdownCardEl.style.transform = 'translate3d(0, 0, 0)';
+      if (heroContentEl) {
+        const elementsToReset = heroContentEl.querySelectorAll('h1, .hero-subtitle, .hero-eyebrow, .divider, .hero-details');
+        elementsToReset.forEach(el => el.style.transform = 'translate3d(0, 0, 0)');
+      }
     });
   }
 

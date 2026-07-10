@@ -102,33 +102,42 @@ p, .body-text {
 
 .hero-bg-layer {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -30px;
+  left: -30px;
+  right: -30px;
+  bottom: -30px;
+  z-index: 1;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hero-bg-image {
   width: 100%;
   height: 100%;
-  z-index: 1;
-  background: linear-gradient(rgba(250, 246, 238, 0.6), rgba(250, 246, 238, 0.75)), url('/src/assets/photos/hero-bg.jpeg') center/cover no-repeat;
-  animation: kenBurns 20s infinite ease-in-out;
+  background: linear-gradient(rgba(250, 246, 238, 0.65), rgba(250, 246, 238, 0.78)), url('/src/assets/photos/hero-bg.jpeg') center/cover no-repeat;
+  animation: kenBurns 24s infinite ease-in-out;
   will-change: transform;
 }
 
 .hero-eyebrow {
   font-family: var(--font-sans);
-  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
-  letter-spacing: 0.3em;
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-gold-dark);
   margin-bottom: var(--spacing-sm);
-  font-weight: 400;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .hero-subtitle {
   font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
   font-style: italic;
   color: var(--color-text-dark);
   margin-bottom: var(--spacing-lg);
   font-weight: 300;
+  letter-spacing: 0.03em;
 }
 
 .hero-details {
@@ -157,14 +166,19 @@ p, .body-text {
 
 /* Wedding countdown card */
 .wedding-countdown-card {
+  position: relative;
   display: inline-block;
-  background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(250,246,238,0.55));
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(250, 246, 238, 0.6));
+  border: 1.5px solid var(--color-gold-light);
   backdrop-filter: var(--glass-blur);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: var(--spacing-md) var(--spacing-lg);
-  box-shadow: 0 4px 20px rgba(58, 53, 45, 0.05);
+  box-shadow: 
+    0 10px 30px rgba(58, 53, 45, 0.06), 
+    0 1px 2px rgba(197, 160, 89, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
   margin-top: var(--spacing-md);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .countdown-label {
@@ -173,7 +187,7 @@ p, .body-text {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
   font-weight: 500;
 }
 
@@ -186,7 +200,18 @@ p, .body-text {
 
 .countdown-unit {
   text-align: center;
-  min-width: 48px;
+  min-width: 60px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 2px 6px rgba(58, 53, 45, 0.02);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.countdown-unit:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-gold);
 }
 
 .countdown-value {
@@ -194,7 +219,9 @@ p, .body-text {
   font-family: var(--font-serif);
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 300;
-  color: var(--color-gold-dark);
+  background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 60%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 1.2;
 }
 
