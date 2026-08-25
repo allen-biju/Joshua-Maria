@@ -490,31 +490,25 @@ document.addEventListener('DOMContentLoaded', () => {
           galleryTrack.style.transform = `translateX(-${maxScrollX}px)`;
         }
 
-        // Calculate and apply premium 3D transforms & parallax on each card
-        const items = galleryTrack.querySelectorAll('.gallery-item');
-        const wrapperRect = gallerySection.getBoundingClientRect();
-        const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
+        if (!isTouchDevice && !isMobileViewport) {
+          const items = galleryTrack.querySelectorAll('.gallery-item');
+          const wrapperRect = gallerySection.getBoundingClientRect();
+          const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
 
-        items.forEach(item => {
-          const itemRect = item.getBoundingClientRect();
-          const itemCenter = itemRect.left + itemRect.width / 2;
-          
-          // Normalized distance from center of the gallery wrapper (-1 to 1)
-          const distance = (itemCenter - wrapperCenter) / (wrapperRect.width / 2);
-          const clampedDistance = Math.max(-1.5, Math.min(1.5, distance));
-          
-          // 1. 3D rotate cards slightly inward towards center
-          const scrollTiltY = clampedDistance * -10; // up to 10 degrees Y rotation
-          item.style.setProperty('--scroll-tilt-y', `${scrollTiltY}deg`);
-          
-          // 2. Scale cards down slightly when moving off-center
-          const scrollScale = 1 - Math.min(0.08, Math.abs(clampedDistance) * 0.05); // scale ranges from 1 to 0.92
-          item.style.setProperty('--scroll-scale', `${scrollScale}`);
-          
-          // 3. Horizontal parallax shift for image inside card (in opposite direction)
-          const parallaxX = -clampedDistance * 12; // up to 12% shift
-          item.style.setProperty('--img-parallax-x', `${parallaxX}%`);
-        });
+          items.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.left + itemRect.width / 2;
+            const distance = (itemCenter - wrapperCenter) / (wrapperRect.width / 2);
+            const clampedDistance = Math.max(-1.5, Math.min(1.5, distance));
+            const scrollTiltY = clampedDistance * -10;
+            const scrollScale = 1 - Math.min(0.08, Math.abs(clampedDistance) * 0.05);
+            const parallaxX = -clampedDistance * 12;
+
+            item.style.setProperty('--scroll-tilt-y', `${scrollTiltY}deg`);
+            item.style.setProperty('--scroll-scale', `${scrollScale}`);
+            item.style.setProperty('--img-parallax-x', `${parallaxX}%`);
+          });
+        }
 
       } else {
         galleryTrack.style.transform = 'translateX(0px)';
@@ -634,6 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Disable 3D tilt completely on mobile touch screens to save battery & processing power
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
   
   if (!isTouchDevice) {
     tiltCards.forEach(card => {
