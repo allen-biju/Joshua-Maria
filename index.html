@@ -380,7 +380,18 @@
         </div>
 
         <div class="timeline">
-          <div class="timeline-progress-line" id="timeline-progress"></div>
+          <!-- Dynamic Wavy Curve SVG -->
+          <svg class="timeline-curve-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="timelineGoldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="var(--color-gold)" />
+                <stop offset="50%" stop-color="var(--color-gold-dark)" />
+                <stop offset="100%" stop-color="var(--color-rose)" />
+              </linearGradient>
+            </defs>
+            <path class="timeline-curve-path-bg" fill="none" />
+            <path class="timeline-curve-path-progress" fill="none" />
+          </svg>
 
           <div class="timeline-node reveal-element">
             <div class="timeline-marker"></div>
