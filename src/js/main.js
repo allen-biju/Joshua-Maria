@@ -243,12 +243,14 @@ document.addEventListener('DOMContentLoaded', () => {
         mainContent.style.display = 'block';
         requestAnimationFrame(() => {
           mainContent.style.opacity = '1';
+          drawTimelineCurve();
         });
       }
       
       triggerScrollReveals();
       resizeGallery();
       updateScrollMetrics();
+      drawTimelineCurve();
     }, frameAssemblyDuration);
   }
   
@@ -362,6 +364,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lastScrollY = 0;
   let scrollTicking = false;
+  const mainContentScrollContainer = document.getElementById('main-content');
+
+  function drawTimelineCurve() {
+    const timeline = document.querySelector('.timeline');
+    if (!timeline) return;
+    
+    const svg = document.querySelector('.timeline-curve-svg');
+    const pathBg = document.querySelector('.timeline-curve-path-bg');
+    const pathProgress = document.querySelector('.timeline-curve-path-progress');
+    if (!svg || !pathBg) return;
+
+    const markers = timeline.querySelectorAll('.timeline-marker');
+    if (markers.length < 2) return;
+
+    const timelineRect = timeline.getBoundingClientRect();
+    
+    let pathD = '';
+    const points = [];
+
+    markers.forEach(marker => {
+      const rect = marker.getBoundingClientRect();
+      const x = rect.left - timelineRect.left + rect.width / 2;
+      const y = rect.top - timelineRect.top + rect.height / 2;
+      points.push({ x, y });
+    });
+
+    pathD = `M ${points[0].x} ${points[0].y}`;
+
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[i];
+      const p1 = points[i + 1];
+      pathD += ` L ${p1.x} ${p1.y}`;
+    }
+
+    pathBg.setAttribute('d', pathD);
+    if (pathProgress) {
+      pathProgress.setAttribute('d', pathD);
+      const pathLength = pathProgress.getTotalLength();
+      pathProgress.style.strokeDasharray = `${pathLength} ${pathLength}`;
+      pathProgress.style.strokeDashoffset = pathLength;
+      pathProgress.style.opacity = '1';
+    }
+  }
 
   function updateScrollMetrics() {
     const isFrameActive = document.body.classList.contains('frame-active');
@@ -399,19 +444,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Scroll-Driven Timeline Progress Line
-    if (timeline && progressLine) {
+    const pathProgress = document.querySelector('.timeline-curve-path-progress');
+    if (timeline && pathProgress) {
       const timelineRect = timeline.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       const timelineTop = timelineRect.top + currentScrollY;
       const timelineHeight = timelineRect.height;
       const targetScroll = currentScrollY + (windowHeight * 0.75);
 
+      let progress = 0;
       if (targetScroll > timelineTop) {
-        let progress = (targetScroll - timelineTop) / timelineHeight;
+        progress = (targetScroll - timelineTop) / timelineHeight;
         progress = Math.max(0, Math.min(1, progress));
-        progressLine.style.height = `${progress * 100}%`;
-      } else {
-        progressLine.style.height = '0%';
+      }
+
+      try {
+        const pathLength = pathProgress.getTotalLength();
+        pathProgress.style.strokeDasharray = `${pathLength} ${pathLength}`;
+        pathProgress.style.strokeDashoffset = pathLength * (1 - progress);
+        pathProgress.style.opacity = '1';
+      } catch (e) {
+        // SVG path is not rendered or has 0 length
       }
     }
 
@@ -494,10 +547,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Calculate gallery height on setup and on resize/load events
+  // Calculate gallery height and timeline curves on setup and on resize/load events
   resizeGallery();
-  window.addEventListener('resize', resizeGallery);
-  window.addEventListener('load', resizeGallery);
+  drawTimelineCurve();
+
+  window.addEventListener('resize', () => {
+    resizeGallery();
+    drawTimelineCurve();
+  });
+  
+  window.addEventListener('load', () => {
+    resizeGallery();
+    drawTimelineCurve();
+  });
+
+  if (mainContentScrollContainer) {
+    mainContentScrollContainer.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          updateScrollMetrics();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+  }
 
   // Setup ResizeObserver to dynamically update height when track or section size changes
   if (typeof ResizeObserver !== 'undefined' && galleryTrack && gallerySection) {
